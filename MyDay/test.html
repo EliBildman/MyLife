@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="packages/jquery-3.3.1.js"></script>
+  <style>
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: Verdana, Geneva, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      height: 100%;
+      background-color: hsla(0, 0%, 0%, 0.5);
+    }
+
+    .event {
+      background-color: hsla(40, 50%, 50%, 0.5);
+      margin: 10px;
+      padding: 10px;
+      border: 5px solid hsla(40, 50%, 50%, 1);
+      font-size: 20px;
+      color: hsla(0, 100%, 100%, 1);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event > .top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .event > .bottom {
+      display: flex;
+      font-size: 25px;
+      justify-content: flex-start;
+    }
+
+
+  </style>
+</head>
+<body>
+  <div class = "container">
+    <div class="event">
+      <div class="top">
+        <div>9:00 AM</div><div>61 Roseland Street</div>
+      </div>
+      <div class="bottom">
+        <strong>Anne Gurian</strong>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="scripts/breif.js"></script>
+  <script src="scripts/map.js"></script>
+  <script src="packages/jquery-3.3.1.js"></script>
+  <script src="scripts/calendar-connect.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="handleClientLoad()"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJQy0WVWidfsxKI5yGJM_E8trn5iWTfrY"></script>
+</head>
+<body>
+  <div id="content">
+    <div id="breif" class="info">
+      <h1 id="clock"></h1>
+      <h2 id="date"></h2>
+      <div id="weather">
+        <div id="icon"></div>
+        <div id="type"></div>
+        <div id="temp"></div>
+        <div id="location"></div>
+      </div>
+    </div>
+    <div id="window"></div>
+    <div id="events" class="info">
+     <table id="events"></table>
+    </div>
+  </div>
+  <div id="map"></div>
+</body>
+</html>
