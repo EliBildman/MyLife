@@ -9,9 +9,11 @@ function createWaypoints() {
   return wpts;
 }
 
+var dr;
+
 function initMap() {
   let directionsService = new google.maps.DirectionsService;
-  let directionsRenderer = new google.maps.DirectionsRenderer;
+  let directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true});
   let map = new google.maps.Map($("#map")[0]);
   directionsRenderer.setMap(map);
   directionsService.route({
