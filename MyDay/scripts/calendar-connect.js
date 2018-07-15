@@ -52,14 +52,10 @@ function loadEvents() {
 
 function setColors() {
   for(let i = 0; i < events.length; i++) {
-  //  colors.push(randomColor());
-    colors.push("hsla(0,100%,100%,1)")
+    colors.push(randomRGB());
   }
 }
 
-function randomColor() {
-  return "hsla(" + Math.floor(Math.random() * 360) + ", 100%, 50%, 1)"
-}
 
 function formatTime(d) {
   let hour = d.getHours();
@@ -86,6 +82,6 @@ function fillTable() {
     let end = formatTime(new Date(events[i].end.dateTime));
     let location = events[i].location.indexOf(",") != -1 ? events[i].location.substring(0, events[i].location.indexOf(",")) : events[i].location;
     sum += events[i].summary.length <= 40 ? events[i].summary : events[i].summary.substring(0, 37) + "...";
-    $("#events").append("<tr><td><div class=\"event\"><div class=\"top\"><div class=\"eventTime\">" + start + "</div><div>" + location + "</div></div><div class=\"bottom\"><strong>" + sum + "</strong></div></div></td></tr>");
+    $("#events").append("<tr><td><div class=\"event\" style=\"background-color:" + hexToRGBATag(colors[i], 0.5) + "; border: 5px solid " + hexToRGBATag(colors[i], 1) + ";\"><div class=\"top\"><div class=\"eventTime\">" + start + "</div><div>" + location + "</div></div><div class=\"bottom\"><strong>" + sum + "</strong></div></div></td></tr>");
   }
 }
