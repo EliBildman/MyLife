@@ -47,6 +47,10 @@
   font-size: 15px;
 }
 
+#list {
+  width: 100%;
+}
+
 .info {
   /* border: 1px solid black; */
   width: 25%;
@@ -57,7 +61,7 @@
   white-space: nowrap;
 }
 
-#events > tr {
+.info > tr {
   border: 10px;
   font-size: 20px;
 }
@@ -79,7 +83,7 @@ body {
   font-family: Verdana, Geneva, sans-serif;
 }
 
-.event {
+.slide {
   margin: 4%;
   margin-bottom: 0;
   padding: 2.5%;

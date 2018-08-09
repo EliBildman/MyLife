@@ -29,7 +29,7 @@ function HSVtoHexRGB(h, s, v) {
 }
 
 function randomRGB() {
-  let col = (Math.floor(Math.random() * 16777216)).toString(16).toUpperCase();
+  let col = (Math.floor(Math.random() * 8777216) + 8000000).toString(16).toUpperCase();
   let oglen = col.length;
   for(let j = 0; j < 6 - oglen; j++) col = "0" + col;
   return col;
@@ -42,6 +42,24 @@ function hexToList(hex) {
     rgb.push(parseInt(hex[i], 16) * 16 + parseInt(hex[i + 1], 16));
   }
   return rgb;
+}
+
+function averageHex(hexa, hexb) {
+  let a = hexToList(hexa);
+  let b = hexToList(hexb);
+  let avg = [];
+  for(let i = 0; i < 3; i++) {
+    avg.push((a[i] + b[i]) / 2);
+  }
+  return rgbToHex(avg);
+}
+
+function rgbToHex(rgb) {
+  let hex = "";
+  for(let i = 0; i < rgb.length; i++) {
+    let col = rgb[i].toString(16).toUpperCase();
+    hex += col.length < 2 ? "0" + col : col;
+  }
 }
 
 function hexToRGBATag(hexColor, a) {

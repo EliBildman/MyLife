@@ -74,6 +74,14 @@ function formatTime(d) {
   return hour + ":" + min + " " + ext;
 }
 
+function eventSlide(eventIndex) {
+  return "<tr><td><div class=\"slide event\" onmouseover=\"eventHover(" + i + ")\" onmouseout=\"eventUnhover(" + i + ")\" style=\"background-color:" + hexToRGBATag(colors[i], 0.5) + "; border: 5px solid " + hexToRGBATag(colors[i], 1) + ";\"><div class=\"top\"><div class=\"eventTime\">" + start + "</div><div style=\"text-align: right\">" + location + "</div></div><div class=\"bottom\"><strong>" + sum + "</strong></div></div></td></tr>"
+}
+
+function homeSlide() {
+  
+}
+
 
 function fillTable() {
   for(let i = 0; i < events.length; i++) {
@@ -82,6 +90,6 @@ function fillTable() {
     let end = formatTime(new Date(events[i].end.dateTime));
     let location = events[i].location.indexOf(",") != -1 ? events[i].location.substring(0, events[i].location.indexOf(",")) : events[i].location;
     sum += events[i].summary.length <= 40 ? events[i].summary : events[i].summary.substring(0, 37) + "...";
-    $("#events").append("<tr><td><div class=\"event\" style=\"background-color:" + hexToRGBATag(colors[i], 0.5) + "; border: 5px solid " + hexToRGBATag(colors[i], 1) + ";\"><div class=\"top\"><div class=\"eventTime\">" + start + "</div><div>" + location + "</div></div><div class=\"bottom\"><strong>" + sum + "</strong></div></div></td></tr>");
+    $("#list").append(eventSlide(i));
   }
 }
