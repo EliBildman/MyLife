@@ -55,6 +55,8 @@
   /* border: 1px solid black; */
   width: 25%;
   background-color: hsla(0, 0%, 0%, 0.5);
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .time {
@@ -80,7 +82,7 @@ html, body {
 }
 
 body {
-  font-family: Verdana, Geneva, sans-serif;
+  font-family: Arial, Geneva, sans-serif;
 }
 
 .slide {
@@ -99,8 +101,38 @@ body {
   justify-content: space-between;
 }
 
+.eventLocation {
+  text-align: right;
+}
+
 .event > .bottom {
   display: flex;
   font-size: 25px;
   justify-content: flex-start;
+}
+
+.home {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.path {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 25px;
+  text-align: right;
+}
+
+.travelInfo {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.pathIcon {
+  max-width:100%;
+  max-height:100%;
 }

@@ -44,12 +44,12 @@ function hexToList(hex) {
   return rgb;
 }
 
-function averageHex(hexa, hexb) {
+function avgHex(hexa, hexb) {
   let a = hexToList(hexa);
   let b = hexToList(hexb);
   let avg = [];
   for(let i = 0; i < 3; i++) {
-    avg.push((a[i] + b[i]) / 2);
+    avg.push(Math.floor((a[i] + b[i]) / 2));
   }
   return rgbToHex(avg);
 }
@@ -60,6 +60,7 @@ function rgbToHex(rgb) {
     let col = rgb[i].toString(16).toUpperCase();
     hex += col.length < 2 ? "0" + col : col;
   }
+  return hex;
 }
 
 function hexToRGBATag(hexColor, a) {

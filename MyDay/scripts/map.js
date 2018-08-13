@@ -4,6 +4,7 @@ var markers = [];
 var loaded = 0;
 var homecolor = "555555";
 var lines = {};
+var _mode = "BICYCLING";
 
 function createWaypoints() {
   wpts = [];
@@ -15,6 +16,7 @@ function createWaypoints() {
   }
   return wpts;
 }
+
 
 function createMarkers() {
   let e = [{location: home}].concat(events);
@@ -39,6 +41,24 @@ function createMarkers() {
   }
 }
 
+function makeRoute(origin, destination, slideID) {
+  let directionsService = new google.maps.DirectionsService;
+  directionsService.route({
+    origin: origin,
+    destination: destination,
+    travelMode: _mode,
+    provideRouteAlternatives: false
+  }, function(response, status) {
+    if(status == "OK") {
+      //console.log(response);
+      $("#time" + slideID).html(response.routes[0].legs[0].duration.text);
+      $("#sum" + slideID).html(response.routes[0].summary.length < 30 ? response.routes[0].summary : response.routes[0].summary.substring(0, 30) + "...");
+    } else {
+      console.log(status);
+    }
+  });
+}
+
 function drawLines() {
   let e = [{location: home}].concat(events);
   for(let i = 0; i < e.length; i++) {
@@ -46,11 +66,13 @@ function drawLines() {
     directionsService.route({
       origin: e[i].location,
       destination: e[(i + 1) % e.length].location,
-      travelMode: "WALKING",
+      travelMode: _mode,
       provideRouteAlternatives: false
     }, function(response, status) {
+      let col = avgHex(i == 0 ? homecolor : colors[i - 1], i == colors.length ? homecolor : colors[i]);
       if(status == "OK") {
-        lines[i] = createLine(response.routes[0], i < colors.length ? "#" + colors[i] : "#" + homecolor, 0.7, 8);
+        //console.log(response);
+        lines[i] = createLine(response.routes[0], "#" + col, 0.7, 8);
       } else {
         console.log(status);
       }
@@ -77,7 +99,7 @@ function createLine(route, color, op, weight) {
 }
 
 function eventHover(i) {
-  lines[i].setOptions({ strokeWeight: 11, strokeOpacity: 1 });
+  lines[i].setOptions({ strokeWeight: 8, strokeOpacity: 1 });
 }
 
 function eventUnhover(i) {

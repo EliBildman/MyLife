@@ -74,22 +74,36 @@ function formatTime(d) {
   return hour + ":" + min + " " + ext;
 }
 
-function eventSlide(eventIndex) {
-  return "<tr><td><div class=\"slide event\" onmouseover=\"eventHover(" + i + ")\" onmouseout=\"eventUnhover(" + i + ")\" style=\"background-color:" + hexToRGBATag(colors[i], 0.5) + "; border: 5px solid " + hexToRGBATag(colors[i], 1) + ";\"><div class=\"top\"><div class=\"eventTime\">" + start + "</div><div style=\"text-align: right\">" + location + "</div></div><div class=\"bottom\"><strong>" + sum + "</strong></div></div></td></tr>"
+function cutAddress(add) {
+  return add.indexOf(",") != -1 ? add.substring(0, add.indexOf(",")) : add;
+}
+
+function eventSlide(summary, time, location, eventIndex) {
+  return "<div class=\"slide event\" style=\"background-color:" + hexToRGBATag(colors[eventIndex], 0.5) + "; border: 5px solid " + hexToRGBATag(colors[eventIndex], 1) + ";\"><div class=\"top\"><div class=\"eventTime\">" + time + "</div><div class=\"eventLocation\">" + location + "</div></div><div class=\"bottom\"><strong>" + summary + "</strong></div></div>";
 }
 
 function homeSlide() {
-  
+  return "<div class=\"slide home\" style=\"background-color:" + hexToRGBATag(homecolor, 0.5) + "; border: 5px solid " + hexToRGBATag(homecolor, 1) + ";\"><strong>Home</strong><div class=\"eventLocation\">" + cutAddress(home) + "</div></div>";
+}
+
+function pathSlide(origin, destination, mode, i) {
+  let colHex = avgHex(i > 0 ? colors[i - 1] : homecolor, colors[i] != null ? colors[i] : homecolor);
+  makeRoute(origin, destination, i);
+  return "<div class=\"slide path\" onmouseover=\"eventHover(" + i + ")\" onmouseout=\"eventUnhover(" + i + ")\" style=\"background-color:" + hexToRGBATag(colHex, 0.5) + "; border: 5px solid " + hexToRGBATag(colHex, 1) + ";\"><img class= \"pathIcon\" src= \"assets/travel_icons/" + mode + ".png\"></img><div class=\"travelInfo\"><div class=\"travelTime\" id=\"time" + i + "\"></div><div class=\"travelSum\" id=\"sum" + i + "\"></div></div></div>";
 }
 
 
 function fillTable() {
+  $("#list").append("<tr><td>" + homeSlide() + "</td></tr>");
   for(let i = 0; i < events.length; i++) {
     let sum = "";
     let start = formatTime(new Date(events[i].start.dateTime));
     let end = formatTime(new Date(events[i].end.dateTime));
-    let location = events[i].location.indexOf(",") != -1 ? events[i].location.substring(0, events[i].location.indexOf(",")) : events[i].location;
+    let location = cutAddress(events[i].location);
     sum += events[i].summary.length <= 40 ? events[i].summary : events[i].summary.substring(0, 37) + "...";
-    $("#list").append(eventSlide(i));
+    $("#list").append("<tr><td>" + pathSlide(i == 0 ? home : events[i - 1].location, events[i].location, _mode, i) + "</td></tr>");
+    $("#list").append("<tr><td>" + eventSlide(sum, start, location, i) + "</td></tr>");
   }
+  if(events.length > 0) $("#list").append("<tr><td>" + pathSlide(events[events.length - 1].location, home, _mode, events.length) + "</td></tr>")
+  $("#list").append("<tr><td>" + homeSlide() + "</td></tr>");
 }

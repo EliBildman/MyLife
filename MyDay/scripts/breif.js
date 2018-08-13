@@ -39,7 +39,7 @@ let url = "http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" 
 axios.get(url).then(function(result) {
   let weather = JSON.parse(result.request.response);
   $("#type").html(weather.weather[0].main);
-  $("#icon").html("<img src=assets/icons/" + weather.weather[0].icon + ".png></img>");
+  $("#icon").html("<img src=assets/weather_icons/" + weather.weather[0].icon + ".png></img>");
   $("#temp").html(Math.floor(weather.main.temp) + String.fromCharCode(176) + "F (" + Math.floor(weather.main.temp_min) + ", " + Math.floor(weather.main.temp_max) + ")");
   $("#location").html("(" + weather.name + ", " + weather.sys.country + ")");
 });
